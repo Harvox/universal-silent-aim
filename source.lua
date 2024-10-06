@@ -30,10 +30,8 @@ end
 local char = returnclp()
 game:GetService("RunService").RenderStepped:Connect(function()
     char = returnclp()
-    if char and char.Character then
         local hi = Instance.new("Highlight", char.Character)
         game.Debris:AddItem(hi, 0.1)
-    end
 end)
 
 -- TARGETTING
