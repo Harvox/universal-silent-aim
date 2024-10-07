@@ -1,6 +1,7 @@
 getgenv().settings = {
     TeamCheck = true,
     CheckIfDead = true,
+    HighlightColor = Color3.fromRGB(255, 255, 255)
 }
 
 -- SETTINGS
@@ -31,6 +32,7 @@ local char = returnclp()
 game:GetService("RunService").RenderStepped:Connect(function()
     char = returnclp()
         local hi = Instance.new("Highlight", char.Character)
+        hi.FillColor = getgenv().settings.HighlightColor
         game.Debris:AddItem(hi, 0.1)
 end)
 
