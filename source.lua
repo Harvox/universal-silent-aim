@@ -27,7 +27,7 @@ function returnclp()
         local teamCheck = not getgenv().settings.TeamCheck or (v.Team ~= player.Team)
         local deadCheck = not getgenv().settings.CheckIfDead or (v.Character and v.Character.Humanoid.Health > 0)
 
-        if teamCheck and deadCheck then
+        if teamCheck and deadCheck and v ~= player then
             local hrp = player.Character:WaitForChild("HumanoidRootPart").Position
             local mag = (hrp - v.Character.HumanoidRootPart.Position).Magnitude
 
