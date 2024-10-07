@@ -1,8 +1,20 @@
+
+
+
+
 getgenv().settings = {
     TeamCheck = true,
     CheckIfDead = true,
-    HighlightColor = Color3.fromRGB(255, 255, 255)
+    HighlightColor = Color3.fromRGB(255, 255, 255),
+    NotifyTarget = true
 }
+
+game:GetService("StarterGui"):SetCore("SendNotification", {
+    Title = "ℹ️ RAYCAST SILENT AIM V2",
+    Text = "Loading Silent Aim please wait!"
+})
+
+for i,v in next, getgenv().settings do print(i,v) end
 
 -- SETTINGS
 
@@ -30,10 +42,17 @@ end
 
 local char = returnclp()
 game:GetService("RunService").RenderStepped:Connect(function()
+   
     char = returnclp()
         local hi = Instance.new("Highlight", char.Character)
         hi.FillColor = getgenv().settings.HighlightColor
         hi.OutlineColor = getgenv().settings.HighlightColor
+        if getgenv().settings.NotifyTarget then
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "ℹ️ TARGET NOTIFIER!",
+                Text = "Current target is: " .. char.Name
+            })
+        end
         game.Debris:AddItem(hi, 0.1)
 end)
 
@@ -51,3 +70,10 @@ hi = hookmetamethod(game, "__namecall", newcclosure(function(Self, ...)
     end
     return hi(Self, ...)
 end))
+
+-- HOOKING
+
+game:GetService("StarterGui"):SetCore("SendNotification", {
+    Title = "✅ RAYCAST SILENT AIM V2",
+    Text = "Silent aim succesfully loaded!"
+})
