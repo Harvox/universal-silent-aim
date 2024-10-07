@@ -4,4 +4,4 @@ this silent aim only works with weapons that use raycasting! therefore games lik
 loadstring: ```loadstring(game:HttpGet("https://raw.githubusercontent.com/Harvox/universal-silent-aim/refs/heads/main/source.lua"))()```
 
 # update v2
-i added highlight and notification features to the silent aim, have fun!
+i added highlight and notification features to the silent aim and improved stability, have fun!
