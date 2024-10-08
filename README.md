@@ -5,3 +5,4 @@ loadstring: ```loadstring(game:HttpGet("https://raw.githubusercontent.com/Harvox
 
 # update v2
 i added highlight and notification features to the silent aim and improved stability, have fun!
+(also added for you to check ur settings by checking in console simple stuff by pretty nice i guess)
