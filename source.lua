@@ -1,7 +1,5 @@
 -- CREDITS TO GLOBE!
 
-
-
 getgenv().settings = {
     TeamCheck = true,
     CheckIfDead = true,
@@ -14,7 +12,7 @@ game:GetService("StarterGui"):SetCore("SendNotification", {
     Text = "Loading Silent Aim please wait!"
 })
 
-for i,v in next, getgenv().settings do print(i,v) end
+for i, v in next, getgenv().settings do print(i, v) end
 
 -- SETTINGS
 
@@ -25,15 +23,17 @@ function returnclp()
 
     for _, v in ipairs(game.Players:GetChildren()) do
         local teamCheck = not getgenv().settings.TeamCheck or (v.Team ~= player.Team)
-        local deadCheck = not getgenv().settings.CheckIfDead or (v.Character and v.Character.Humanoid.Health > 0)
+        local deadCheck = not getgenv().settings.CheckIfDead or (v.Character and v.Character:FindFirstChild("Humanoid") and v.Character.Humanoid.Health > 0)
 
         if teamCheck and deadCheck and v ~= player then
-            local hrp = player.Character:WaitForChild("HumanoidRootPart").Position
-            local mag = (hrp - v.Character.HumanoidRootPart.Position).Magnitude
+            local hrp = player.Character:FindFirstChild("HumanoidRootPart")
+            if hrp and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
+                local mag = (hrp.Position - v.Character.HumanoidRootPart.Position).Magnitude
 
-            if mag < maxdis then
-                opp = v
-                maxdis = mag
+                if mag < maxdis then
+                    opp = v
+                    maxdis = mag
+                end
             end
         end
     end
@@ -42,8 +42,8 @@ end
 
 local char = returnclp()
 game:GetService("RunService").RenderStepped:Connect(function()
-   
     char = returnclp()
+    if char and char.Character then
         local hi = Instance.new("Highlight", char.Character)
         hi.FillColor = getgenv().settings.HighlightColor
         hi.OutlineColor = getgenv().settings.HighlightColor
@@ -54,6 +54,7 @@ game:GetService("RunService").RenderStepped:Connect(function()
             })
         end
         game.Debris:AddItem(hi, 0.1)
+    end
 end)
 
 -- TARGETTING
@@ -65,8 +66,10 @@ hi = hookmetamethod(game, "__namecall", newcclosure(function(Self, ...)
     local method = getnamecallmethod():lower()
 
     if tostring(method) == "raycast" then
-        args[2] = (char.Character.HumanoidRootPart.Position - args[1]).Unit * 1000
-        return hi(Self, unpack(args))
+        if char and char.Character and char.Character:FindFirstChild("HumanoidRootPart") then
+            args[2] = (char.Character.HumanoidRootPart.Position - args[1]).Unit * 1000
+            return hi(Self, unpack(args))
+        end
     end
     return hi(Self, ...)
 end))
@@ -75,5 +78,5 @@ end))
 
 game:GetService("StarterGui"):SetCore("SendNotification", {
     Title = "✅ RAYCAST SILENT AIM V2",
-    Text = "Silent aim succesfully loaded!"
+    Text = "Silent aim successfully loaded!"
 })
