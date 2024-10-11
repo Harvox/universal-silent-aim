@@ -8,5 +8,6 @@ i added highlight and notification features to the silent aim and improved stabi
 # update v3
 i added checks to prevent erroring this should fix it from erroring from other
 games and prevent bans from games that check errors in console
+fixes: checking humanoidrootpart and using getservice for games that hash the workspace or player name
 
 loadstring: ```loadstring(game:HttpGet("https://raw.githubusercontent.com/Harvox/universal-silent-aim/refs/heads/main/source.lua"))()```
