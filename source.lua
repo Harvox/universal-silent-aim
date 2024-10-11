@@ -17,11 +17,11 @@ for i, v in next, getgenv().settings do print(i, v) end
 -- SETTINGS
 
 function returnclp()
-    local player = game:GetService("Players").LocalPlayer
+    local player = game.Players.LocalPlayer
     local maxdis = math.huge
     local opp
 
-    for _, v in ipairs(game:GetService("Players"):GetChildren()) do
+    for _, v in ipairs(game.Players:GetChildren()) do
         local teamCheck = not getgenv().settings.TeamCheck or (v.Team ~= player.Team)
         local deadCheck = not getgenv().settings.CheckIfDead or (v.Character and v.Character:FindFirstChild("Humanoid") and v.Character.Humanoid.Health > 0)
 
@@ -67,8 +67,11 @@ hi = hookmetamethod(game, "__namecall", newcclosure(function(Self, ...)
 
     if tostring(method) == "raycast" then
         if char and char.Character and char.Character:FindFirstChild("HumanoidRootPart") then
-            args[2] = (char.Character.HumanoidRootPart.Position - args[1]).Unit * 1000
-            return hi(Self, unpack(args))
+            local targetPosition = char.Character.HumanoidRootPart.Position
+            if args[1] and typeof(args[1]) == "Vector3" then
+                args[2] = (targetPosition - args[1]).Unit * 1000
+                return hi(Self, unpack(args))
+            end
         end
     end
     return hi(Self, ...)
