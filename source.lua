@@ -17,7 +17,7 @@ for i, v in next, getgenv().settings do print(i, v) end
 -- SETTINGS
 
 function returnclp()
-    local player = game.Players.LocalPlayer
+    local player = game:GetService("Players").LocalPlayer
     local maxdis = math.huge
     local opp
 
