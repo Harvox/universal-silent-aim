@@ -21,7 +21,7 @@ function returnclp()
     local maxdis = math.huge
     local opp
 
-    for _, v in ipairs(game.Players:GetChildren()) do
+    for _, v in ipairs(game:GetService("Players"):GetChildren()) do
         local teamCheck = not getgenv().settings.TeamCheck or (v.Team ~= player.Team)
         local deadCheck = not getgenv().settings.CheckIfDead or (v.Character and v.Character:FindFirstChild("Humanoid") and v.Character.Humanoid.Health > 0)
 
